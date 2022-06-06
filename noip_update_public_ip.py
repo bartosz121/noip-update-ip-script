@@ -9,10 +9,6 @@ NOIP_BASE_URL = "https://dynupdate.no-ip.com/nic/update"
 PUBLICIP_BASE_URL = "https://api.ipify.org/?format=json"
 
 
-class NoIpError(Exception):
-    ...
-
-
 def _get_public_ip() -> str:
     with urllib_request.urlopen(PUBLICIP_BASE_URL) as r:
         body = r.read()
