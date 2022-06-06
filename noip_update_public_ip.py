@@ -2,6 +2,7 @@ import argparse
 import base64
 import sys
 import json
+from datetime import datetime
 from http.client import HTTPException
 from urllib import request as urllib_request
 
@@ -30,6 +31,7 @@ def main():
     verbose = args.verbose
 
     output(f"{'NO-IP-PUBLIC-IP-UPDATE':=^76}\n")
+    output(f"{datetime.utcnow().strftime('%Y/%m/%d %H:%M:%S UTC'): ^76}\n")
     if verbose:
         output("Getting public ip address...\n")
 
@@ -61,7 +63,9 @@ def main():
     elif body.startswith("nochg"):
         output("Request successful. No change.\n")
     else:
-        raise HTTPException(f"Unknown error.\n\tStatus: {r.status}\n\tBody: {body!r}")
+        raise HTTPException(
+            f"Unknown error.\n\tStatus: {r.status}\n\tBody: {body!r}\n\tSee https://www.noip.com/integrate/response for more info"
+        )
 
     output(("=" * 76) + "\n")
 
